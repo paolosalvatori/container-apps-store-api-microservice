@@ -1,6 +1,11 @@
 name: Build and Deploy
 on:
   push:
+    inputs:
+      region:
+        description: 'Azure Region'
+        required: true
+        default: 'westeurope'
     branches: [main]
     # Publish semver tags as releases.
     tags: ["v*.*.*"]
@@ -10,6 +15,11 @@ on:
       - "assets/**"
       - "build-and-run.md"
   workflow_dispatch:
+    inputs:
+      region:
+        description: 'Azure Region'
+        required: true
+        default: 'westeurope'
 
 env:
   REGISTRY: ghcr.io
@@ -103,7 +113,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
-            az group create -g ${{ secrets.RESOURCE_GROUP }} -l canadacentral
+            az group create -g ${{ secrets.RESOURCE_GROUP }} -l ${{ github.event.inputs.region }}
             az deployment group create -g ${{ secrets.RESOURCE_GROUP }} -f ./deploy/main.bicep \
              -p \
                 minReplicas=0 \
