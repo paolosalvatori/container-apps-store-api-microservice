@@ -15,7 +15,7 @@ param goImage string
 param goPort int = 8050
 var goServiceAppName = 'go-app'
 
-param apimName string = 'store-api-mgmt-${uniqueString(resourceGroup().id)}'
+param apimName string = 'store-api-mgmt-${uniqueString(subscription().id, resourceGroup().id)}'
 param deployApim bool = true
 param isPrivateRegistry bool = true
 
