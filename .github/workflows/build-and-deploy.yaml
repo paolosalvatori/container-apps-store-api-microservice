@@ -6,10 +6,17 @@ on:
         description: 'Azure Region'
         required: true
         default: 'westeurope'
-      apimEnabled:
-        description: 'APIM Enabled'
+      deployApim:
+        description: 'Deploy APIM?'
         required: true
         default: 'true'
+      isPrivateRegistry:
+        description: 'Is Private Registry?'
+        required: true
+        default: 'false'
+      suffix:
+        description: 'Resource Suffix'
+        required: false
     branches: [main]
     # Publish semver tags as releases.
     tags: ["v*.*.*"]
@@ -25,10 +32,17 @@ on:
         description: 'Azure Region'
         required: true
         default: 'westeurope'
-      apimEnabled:
-        description: 'APIM Enabled'
+      deployApim:
+        description: 'Deploy APIM?'
         required: true
         default: 'true'
+      isPrivateRegistry:
+        description: 'Is Private Registry?'
+        required: true
+        default: 'false'
+      suffix:
+        description: 'Resource Suffix'
+        required: false
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
@@ -133,4 +147,6 @@ jobs:
                 containerRegistry=${{ env.REGISTRY }} \
                 containerRegistryUsername=${{ github.actor }} \
                 containerRegistryPassword=${{ secrets.GITHUB_TOKEN }} \
-                deployApim=${{ github.event.inputs.apimEnabled }}
+                deployApim=${{ github.event.inputs.deployApim }} \
+                isPrivateRegistry=${{ github.event.inputs.isPrivateRegistry }} \
+                suffix=${{ github.event.inputs.suffix }}

@@ -37,7 +37,7 @@ var productsSet = [
   }
 ]
 
-//we refer to exisitng APIM instance. This may even be in a different resoruce group
+//we refer to existing APIM instance. This may even be in a different resoruce group
 resource apiManagementService 'Microsoft.ApiManagement/service@2020-12-01' existing = {
   name: apimInstanceName
 }

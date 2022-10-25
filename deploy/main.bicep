@@ -1,5 +1,6 @@
 param location string = resourceGroup().location
-param environmentName string = 'env-${uniqueString(resourceGroup().id)}'
+param suffix string = uniqueString(resourceGroup().id)
+param environmentName string = 'env-${suffix}'
 
 param minReplicas int = 0
 
@@ -15,9 +16,11 @@ param goImage string
 param goPort int = 8050
 var goServiceAppName = 'go-app'
 
-param apimName string = 'store-api-mgmt-${uniqueString(subscription().id, resourceGroup().id)}'
+param accountName string = 'cosmos-${suffix}'
+
+param apimName string = 'store-api-mgmt-${suffix}'
 param deployApim bool = true
-param isPrivateRegistry bool = true
+param isPrivateRegistry bool = false
 
 param containerRegistry string
 param containerRegistryUsername string = 'testUser'
@@ -41,6 +44,7 @@ module environment 'environment.bicep' = {
 module cosmosdb 'cosmosdb.bicep' = {
   name: '${deployment().name}--cosmosdb'
   params: {
+    accountName: accountName
     location: location
     primaryRegion: location
   }
