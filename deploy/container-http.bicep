@@ -73,7 +73,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
           }
         }
         {
-          name: 'cpuScalingRule'
+          name: 'cpu-scaling-rule'
           custom: {
             type: 'cpu'
             metadata: {
@@ -83,7 +83,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
           }
         }
         {
-          name: 'memoryScalingRule'
+          name: 'memory-scaling-rule'
           custom: {
             type: 'memory'
             metadata: {
