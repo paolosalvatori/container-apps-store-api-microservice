@@ -16,8 +16,8 @@ on:
         default: 'false'
       suffix:
         description: 'Resource Suffix'
-        required: false
-        default: ''
+        required: true
+        default: 'astra'
     branches: [main]
     # Publish semver tags as releases.
     tags: ["v*.*.*"]
@@ -43,8 +43,8 @@ on:
         default: 'false'
       suffix:
         description: 'Resource Suffix'
-        required: false
-        default: ''
+        required: true
+        default: 'astra'
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
