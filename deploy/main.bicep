@@ -1,8 +1,11 @@
+@description('Specifies the location of Azure resources.')
 param location string = resourceGroup().location
+
 param suffix string = uniqueString(resourceGroup().id)
 param environmentName string = 'env-${suffix}'
 
 param minReplicas int = 0
+param maxReplicas int = 10
 
 param nodeImage string 
 param nodePort int = 3000
@@ -80,10 +83,14 @@ module pythonService 'container-http.bicep' = {
     containerPort: pythonPort
     isPrivateRegistry: isPrivateRegistry 
     minReplicas: minReplicas
+    maxReplicas: maxReplicas
     containerRegistry: containerRegistry
     registryPassword: registryPassword
     containerRegistryUsername: containerRegistryUsername
     revisionMode: 'Single'
+    concurrentRequestsThreshold: concurrentRequestsThreshold
+    cpuUtilizationThreshold: cpuUtilizationThreshold
+    memoryUtilizationThreshold: memoryUtilizationThreshold
     secrets: [
       {
         name: registryPassword
@@ -147,6 +154,7 @@ module goService 'container-http.bicep' = {
     containerPort: goPort
     isPrivateRegistry: isPrivateRegistry
     minReplicas: minReplicas
+    maxReplicas: maxReplicas
     containerRegistry: containerRegistry
     registryPassword: registryPassword
     containerRegistryUsername: containerRegistryUsername
@@ -182,7 +190,10 @@ module nodeService 'container-http.bicep' = {
     containerRegistry: containerRegistry
     registryPassword: registryPassword
     containerRegistryUsername: containerRegistryUsername
-    revisionMode: 'Multiple'
+    revisionMode: 'Single'
+    concurrentRequestsThreshold: concurrentRequestsThreshold
+    cpuUtilizationThreshold: cpuUtilizationThreshold
+    memoryUtilizationThreshold: memoryUtilizationThreshold
     env: [
       {
         name: 'ORDER_SERVICE_NAME'

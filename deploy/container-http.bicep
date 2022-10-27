@@ -10,6 +10,7 @@ param isPrivateRegistry bool
 param enableIngress bool 
 param registryPassword string
 param minReplicas int = 0
+param maxReplicas int = 10
 param secrets array = []
 param env array = []
 param revisionMode string = 'Single'
@@ -63,7 +64,7 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
       ]
       scale: {
         minReplicas: minReplicas
-        maxReplicas: 1
+        maxReplicas: maxReplicas
         rules: [{
           name: 'http-rule'
           http: {

@@ -1,32 +1,32 @@
 name: Build and Deploy
 on:
-  push:
-    inputs:
-      region:
-        description: 'Azure Region'
-        required: true
-        default: 'westeurope'
-      deployApim:
-        description: 'Deploy APIM?'
-        required: true
-        default: 'true'
-      isPrivateRegistry:
-        description: 'Is Private Registry?'
-        required: true
-        default: 'false'
-      suffix:
-        description: 'Resource Suffix'
-        required: true
-        default: 'astra'
-    branches: [main]
-    # Publish semver tags as releases.
-    tags: ["v*.*.*"]
-    paths-ignore:
-      - "README.md"
-      - ".github/**"
-      - ".vscode/**"
-      - "assets/**"
-      - "build-and-run.md"
+  #push:
+  #  inputs:
+  #    region:
+  #      description: 'Azure Region'
+  #      required: true
+  #      default: 'westeurope'
+  #    deployApim:
+  #      description: 'Deploy APIM?'
+  #      required: true
+  #      default: 'true'
+  #    isPrivateRegistry:
+  #      description: 'Is Private Registry?'
+  #      required: true
+  #      default: 'false'
+  #    suffix:
+  #      description: 'Resource Suffix'
+  #      required: true
+  #      default: 'astra'
+  #  branches: [main]
+  #  # Publish semver tags as releases.
+  #  tags: ["v*.*.*"]
+  #  paths-ignore:
+  #    - "README.md"
+  #    - ".github/**"
+  #    - ".vscode/**"
+  #    - "assets/**"
+  #    - "build-and-run.md"
   workflow_dispatch:
     inputs:
       region:
