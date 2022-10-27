@@ -27,7 +27,9 @@ param containerRegistryUsername string = 'testUser'
 @secure()
 param containerRegistryPassword string = ''
 param registryPassword string = 'registry-password'
-
+param concurrentRequestsThreshold string = '10'
+param cpuUtilizationThreshold string = '50'
+param memoryUtilizationThreshold string = '50'
 
 // Container Apps Environment 
 module environment 'environment.bicep' = {
@@ -149,6 +151,9 @@ module goService 'container-http.bicep' = {
     registryPassword: registryPassword
     containerRegistryUsername: containerRegistryUsername
     revisionMode: 'Single'
+    concurrentRequestsThreshold: concurrentRequestsThreshold
+    cpuUtilizationThreshold: cpuUtilizationThreshold
+    memoryUtilizationThreshold: memoryUtilizationThreshold
     secrets: isPrivateRegistry ? [
       {
         name: registryPassword
@@ -157,7 +162,6 @@ module goService 'container-http.bicep' = {
     ] : []
   }
 }
-
 
 // Node App
 module nodeService 'container-http.bicep' = {

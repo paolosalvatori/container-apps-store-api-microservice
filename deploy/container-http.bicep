@@ -13,7 +13,9 @@ param minReplicas int = 0
 param secrets array = []
 param env array = []
 param revisionMode string = 'Single'
-
+param concurrentRequestsThreshold string = '10'
+param cpuUtilizationThreshold string = '50'
+param memoryUtilizationThreshold string = '50'
 
 resource environment 'Microsoft.App/managedEnvironments@2022-03-01' existing = {
   name: environmentName
@@ -62,6 +64,34 @@ resource containerApp 'Microsoft.App/containerApps@2022-03-01' = {
       scale: {
         minReplicas: minReplicas
         maxReplicas: 1
+        rules: [{
+          name: 'http-rule'
+          http: {
+            metadata: {
+                concurrentRequests: concurrentRequestsThreshold
+            }
+          }
+        }
+        {
+          name: 'cpuScalingRule'
+          custom: {
+            type: 'cpu'
+            metadata: {
+              type: 'Utilization'
+              value: cpuUtilizationThreshold
+            }
+          }
+        }
+        {
+          name: 'memoryScalingRule'
+          custom: {
+            type: 'memory'
+            metadata: {
+              type: 'Utilization'
+              value: memoryUtilizationThreshold
+            }
+          }
+        }]
       }
     }
   }
